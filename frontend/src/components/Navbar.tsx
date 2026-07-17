@@ -40,39 +40,38 @@ export default function Navbar() {
       {/* 4px M-Stripe at the top of Navbar */}
       <div className="m-stripe" />
       
-      <nav className="h-16 w-full flex items-center justify-between px-6 relative">
-        {/* Left: Logo */}
-        <Link href="/" className="flex items-center space-x-2 select-none">
-          <span className="font-sans text-2xl font-bold tracking-tight text-white uppercase">
-            CREDA
-          </span>
-          <span className="bg-surface-card px-2 py-0.5 font-mono text-[10px] text-mute border border-hairline">
-            v1.0
-          </span>
-        </Link>
+      <nav className="h-16 w-full flex items-center justify-between px-6">
+        {/* Left Group: Logo & Navigation links */}
+        <div className="flex items-center space-x-10 h-full">
+          <Link href="/" className="flex items-center space-x-2 select-none">
+            <span className="font-sans text-2xl font-bold tracking-tight text-white uppercase">
+              CREDA
+            </span>
+            <span className="bg-surface-card px-2 py-0.5 font-mono text-[10px] text-mute border border-hairline">
+              v1.0
+            </span>
+          </Link>
 
-        {/* Desktop Navigation Links */}
-        <div className="absolute left-48 top-0 bottom-0 items-center hidden md:flex space-x-6">
-          {navLinks.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-sans text-[12px] font-bold tracking-[1.5px] uppercase transition-colors ${
-                  active 
-                    ? 'text-white border-b-2 border-accent-blue py-5' 
-                    : 'text-mute hover:text-white'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center space-x-6 h-full">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-sans text-[12px] font-bold tracking-[1.5px] uppercase transition-colors py-5 ${
+                    active 
+                      ? 'text-white border-b-2 border-accent-blue' 
+                      : 'text-mute hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
-
-        {/* Center: Spacer */}
-        <div className="hidden md:block flex-1" />
 
         {/* Right: Wallet Connection & Stats */}
         <div className="hidden md:flex items-center space-x-4">
