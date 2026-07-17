@@ -15,7 +15,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/creda_hero.png"
-            alt="Creda Motorsport Performance Hero"
+            alt="Creda Charity Trust and Escrow"
             fill
             className="object-cover opacity-80"
             priority
@@ -47,7 +47,7 @@ export default function LandingPage() {
               href="/tx-center"
               className="flex h-12 items-center justify-center border border-hairline bg-transparent px-8 font-sans text-xs font-bold tracking-[1.5px] uppercase text-white hover:bg-surface-card transition-all w-full sm:w-auto"
             >
-              MONITOR TELEMETRY
+              AUDIT TRANSACTIONS
             </Link>
           </div>
         </div>
@@ -145,7 +145,7 @@ impl DistributionContract {
           <div className="relative h-64 w-full">
             <Image
               src="/images/creda_detail.png"
-              alt="Carbon fiber detail representation"
+              alt="Secure digital vault and contract details"
               fill
               className="object-cover"
             />
@@ -168,20 +168,20 @@ impl DistributionContract {
           <div className="relative h-64 w-full">
             <Image
               src="/images/creda_cockpit.png"
-              alt="Racing cockpit layout representation"
+              alt="Community unity and global impact"
               fill
               className="object-cover"
             />
           </div>
           <div className="p-6 space-y-4">
             <span className="font-mono text-[10px] font-bold tracking-[1.5px] text-accent-blue uppercase">
-              PILOT TELEMETRY
+              TRANSPARENCY AUDIT
             </span>
             <h3 className="font-sans text-xl font-bold text-white uppercase">
-              REAL-TIME OPERATIONAL METRICS
+              REAL-TIME LEDGER VERIFICATION
             </h3>
             <p className="font-sans text-sm text-body-text font-light leading-relaxed">
-              Control panels update dynamically with current ledger state. Admins manage milestone registers and donors verify the flow of assets instantly.
+              Ledger entries update instantly with the current block state. Donors, auditors, and administrators audit the flow of funds with absolute visibility.
             </p>
           </div>
         </div>
