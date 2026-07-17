@@ -52,7 +52,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="absolute left-32 top-0 bottom-0 items-center hidden md:flex space-x-6">
+        <div className="absolute left-48 top-0 bottom-0 items-center hidden md:flex space-x-6">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
