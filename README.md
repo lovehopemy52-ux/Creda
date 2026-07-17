@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-  <a href="https://credaorg.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/LIVE_DEMO-CREDAORG.VERCEL.APP-cyan?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+  <a href="https://credaorg-weld.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/LIVE_DEMO-CREDAORG--WELD.VERCEL.APP-cyan?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
   </a>
 </p>
 
