@@ -15,32 +15,15 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [roleSelectOpen, setRoleSelectOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [menuDropdownOpen, setMenuDropdownOpen] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('truvial_theme') as 'dark' | 'light';
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.body.classList.toggle('light', savedTheme === 'light');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    localStorage.setItem('truvial_theme', nextTheme);
-    document.body.classList.toggle('light', nextTheme === 'light');
-  };
 
   const pendingCount = transactions.filter((t) => t.status === 'pending' || t.status === 'processing').length;
 
   const navLinks = [
-    { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Activity Feed', href: '/activity' },
-    { label: 'Transaction Center', href: '/tx-center' },
-    { label: 'Analytics', href: '/analytics' },
-    { label: 'Settings', href: '/settings' }
+    { label: 'DASHBOARD', href: '/dashboard' },
+    { label: 'ACTIVITY FEED', href: '/activity' },
+    { label: 'TRANSACTION CENTER', href: '/tx-center' },
+    { label: 'ANALYTICS', href: '/analytics' },
+    { label: 'SETTINGS', href: '/settings' }
   ];
 
   const handleConnect = async (role: 'admin' | 'donor' | 'beneficiary') => {
@@ -53,57 +36,42 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 h-16 w-full border-b border-hairline bg-canvas/30 backdrop-blur-md">
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 relative">
+    <div className="sticky top-0 z-50 w-full bg-canvas/90 backdrop-blur-md border-b border-hairline">
+      {/* 4px M-Stripe at the top of Navbar */}
+      <div className="m-stripe" />
+      
+      <nav className="h-16 w-full flex items-center justify-between px-6 relative">
         {/* Left: Logo */}
         <Link href="/" className="flex items-center space-x-2 select-none">
-          <span className="font-serif text-2xl font-medium tracking-tight text-ink">
-            Truvial
+          <span className="font-sans text-2xl font-bold tracking-tight text-white uppercase">
+            CREDA
           </span>
-          <span className="rounded-full bg-surface-elevated px-2 py-0.5 font-mono text-[10px] text-mute border border-hairline">
+          <span className="bg-surface-card px-2 py-0.5 font-mono text-[10px] text-mute border border-hairline">
             v1.0
           </span>
         </Link>
 
-        {/* Absolute Burger Menu positioned exactly below the navbar border on the left */}
-        <div className="absolute left-16 top-[68px] z-50 hidden md:block">
-          <label className="buttons__burger" htmlFor="burger">
-            <input
-              type="checkbox"
-              id="burger"
-              checked={menuDropdownOpen}
-              onChange={(e) => setMenuDropdownOpen(e.target.checked)}
-            />
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-
-          {menuDropdownOpen && (
-            <div className="absolute left-0 mt-3 w-56 rounded-lg border border-hairline-strong bg-surface-elevated p-1 shadow-2xl z-50">
-              <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-mute border-b border-hairline mb-1 select-none">
-                Menu
-              </div>
-              {navLinks.map((link) => {
-                const active = pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMenuDropdownOpen(false)}
-                    className={`flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold rounded hover:bg-surface-card hover:text-ink ${
-                      active ? 'text-ink bg-surface-card/50' : 'text-mute'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+        {/* Desktop Navigation Links */}
+        <div className="absolute left-32 top-0 bottom-0 items-center hidden md:flex space-x-6">
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`font-sans text-[12px] font-bold tracking-[1.5px] uppercase transition-colors ${
+                  active 
+                    ? 'text-white border-b-2 border-accent-blue py-5' 
+                    : 'text-mute hover:text-white'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Center: Empty to maintain space */}
+        {/* Center: Spacer */}
         <div className="hidden md:block flex-1" />
 
         {/* Right: Wallet Connection & Stats */}
@@ -112,64 +80,24 @@ export default function Navbar() {
           {pendingCount > 0 && (
             <Link
               href="/tx-center"
-              className="flex items-center space-x-1.5 rounded-full bg-accent-blue-glow/10 px-3 py-1 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue-glow/20 transition-colors"
+              className="flex items-center space-x-1.5 bg-accent-blue-glow/10 px-3 py-1 border border-accent-blue/30 text-accent-blue hover:bg-accent-blue-glow/20 transition-colors"
             >
               <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-              <span className="font-mono text-[11px] font-medium">{pendingCount} Active</span>
+              <span className="font-mono text-[11px] font-medium">{pendingCount} ACTIVE</span>
             </Link>
           )}
 
           {isConnected && (
-            <span className="flex items-center space-x-1 rounded-full bg-surface-card px-2.5 py-1 text-[11px] border border-hairline font-sans font-medium text-body-text">
+            <span className="flex items-center space-x-1 bg-surface-card px-2.5 py-1 text-[11px] border border-hairline font-sans font-bold uppercase tracking-wider text-body-text">
               {userRole === 'admin' && <Shield className="mr-1 h-3 w-3 text-accent-red" />}
               {userRole === 'beneficiary' && <Award className="mr-1 h-3 w-3 text-accent-green" />}
               {userRole === 'donor' && <User className="mr-1 h-3 w-3 text-accent-blue" />}
-              {userRole.toUpperCase()}
+              {userRole}
             </span>
           )}
-          {/* Theme Toggle */}
-          <div className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-card transition-colors mr-1">
-            <label htmlFor="themeToggle" className="themeToggle st-sunMoonThemeToggleBtn w-5 h-5 flex items-center justify-center relative">
-              <input
-                type="checkbox"
-                id="themeToggle"
-                className="themeToggleInput absolute inset-0 opacity-0 cursor-pointer"
-                checked={theme === 'light'}
-                onChange={toggleTheme}
-              />
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                stroke="none"
-                className="text-mute hover:text-ink transition-colors"
-              >
-                <mask id="moon-mask">
-                  <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-                  <circle cx="11" cy="3" r="8" fill="black"></circle>
-                </mask>
-                <circle
-                  className="sunMoon"
-                  cx="10"
-                  cy="10"
-                  r="8"
-                  mask="url(#moon-mask)"
-                ></circle>
-                <g>
-                  <circle className="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
-                  <circle className="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
-                  <circle className="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
-                  <circle className="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
-                  <circle className="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
-                  <circle className="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
-                </g>
-              </svg>
-            </label>
-          </div>
 
-          <div className="relative flex items-center space-x-3 bg-surface-card border border-hairline rounded-full pl-3.5 pr-2 py-1">
-            <span className="font-sans text-xs font-semibold text-body-text select-none">
+          <div className="relative flex items-center space-x-3 bg-surface-card border border-hairline px-3.5 py-1.5">
+            <span className="font-sans text-xs font-semibold text-body-text select-none uppercase tracking-[0.5px]">
               {isConnected ? (
                 <span className="flex items-center">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent-green mr-2 animate-pulse" />
@@ -189,7 +117,7 @@ export default function Navbar() {
                     setTimeout(() => setCopied(false), 1500);
                   }
                 }}
-                className="flex items-center justify-center p-1 rounded-full text-mute hover:text-ink hover:bg-surface-elevated transition-all"
+                className="flex items-center justify-center p-1 text-mute hover:text-ink hover:bg-surface-elevated transition-all border border-hairline"
                 title="Copy Address"
               >
                 {copied ? (
@@ -200,40 +128,42 @@ export default function Navbar() {
               </button>
             )}
 
-            <input
-              type="checkbox"
-              role="switch"
-              className="liquid-3"
-              checked={isConnected}
-              onChange={() => {
-                if (isConnected) {
-                  disconnect();
-                } else {
-                  setRoleSelectOpen(!roleSelectOpen);
-                }
-              }}
-            />
+            {isConnected ? (
+              <button 
+                onClick={disconnect}
+                className="bg-accent-red px-3 py-1 font-sans text-[10px] font-bold tracking-[1.5px] uppercase text-white hover:bg-red-700 transition-colors"
+              >
+                Disconnect
+              </button>
+            ) : (
+              <button
+                onClick={() => setRoleSelectOpen(!roleSelectOpen)}
+                className="bg-white px-3 py-1 font-sans text-[10px] font-bold tracking-[1.5px] uppercase text-black hover:bg-white/80 transition-colors"
+              >
+                Connect
+              </button>
+            )}
 
             {roleSelectOpen && !isConnected && (
-              <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-hairline-strong bg-surface-elevated p-1 shadow-2xl z-50">
-                <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-mute">
-                  Select Test Profile
+              <div className="absolute right-0 top-full mt-2 w-48 border border-hairline-strong bg-surface-elevated p-1 shadow-2xl z-50">
+                <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-mute border-b border-hairline mb-1 select-none">
+                  Select Profile
                 </div>
                 <button
                   onClick={() => handleConnect('donor')}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-medium text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
-                  Donor Profile
+                  Donor
                 </button>
                 <button
                   onClick={() => handleConnect('admin')}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-medium text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
-                  Charity Admin
+                  Admin
                 </button>
                 <button
                   onClick={() => handleConnect('beneficiary')}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-medium text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
                   Beneficiary
                 </button>
@@ -244,51 +174,10 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <div className="md:hidden flex items-center space-x-3">
-          {/* Mobile Theme Toggle */}
-          <div className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-card transition-colors mr-1">
-            <label htmlFor="themeToggleMobile" className="themeToggle st-sunMoonThemeToggleBtn w-5 h-5 flex items-center justify-center relative">
-              <input
-                type="checkbox"
-                id="themeToggleMobile"
-                className="themeToggleInput absolute inset-0 opacity-0 cursor-pointer"
-                checked={theme === 'light'}
-                onChange={toggleTheme}
-              />
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                stroke="none"
-                className="text-mute hover:text-ink transition-colors"
-              >
-                <mask id="moon-mask-mobile">
-                  <rect x="0" y="0" width="20" height="20" fill="white"></rect>
-                  <circle cx="11" cy="3" r="8" fill="black"></circle>
-                </mask>
-                <circle
-                  className="sunMoon"
-                  cx="10"
-                  cy="10"
-                  r="8"
-                  mask="url(#moon-mask-mobile)"
-                ></circle>
-                <g>
-                  <circle className="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
-                  <circle className="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
-                  <circle className="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
-                  <circle className="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
-                  <circle className="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
-                  <circle className="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
-                </g>
-              </svg>
-            </label>
-          </div>
-
           {pendingCount > 0 && (
             <Link
               href="/tx-center"
-              className="flex items-center space-x-1 rounded-full bg-accent-blue-glow/10 px-2.5 py-0.5 border border-accent-blue/30 text-accent-blue text-xs font-mono mr-1"
+              className="flex items-center space-x-1 bg-accent-blue-glow/10 px-2.5 py-0.5 border border-accent-blue/30 text-accent-blue text-xs font-mono mr-1"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent-blue animate-ping" />
               <span>{pendingCount}</span>
@@ -297,16 +186,16 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-mute hover:text-ink transition-colors p-1"
+            className="text-mute hover:text-white transition-colors p-1"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden w-full border-b border-hairline bg-canvas px-6 py-4 flex flex-col space-y-4 shadow-xl">
+        <div className="md:hidden w-full border-t border-hairline bg-canvas px-6 py-4 flex flex-col space-y-4 shadow-xl">
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
@@ -314,8 +203,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`font-sans text-[14px] font-semibold transition-colors ${
-                  active ? 'text-ink' : 'text-mute hover:text-ink'
+                className={`font-sans text-[12px] font-bold tracking-[1.5px] uppercase transition-colors ${
+                  active ? 'text-white' : 'text-mute hover:text-white'
                 }`}
               >
                 {link.label}
@@ -325,7 +214,7 @@ export default function Navbar() {
 
           <div className="border-t border-hairline pt-4 flex flex-col space-y-3 relative">
             <div className="flex items-center justify-between">
-              <span className="font-sans text-xs font-semibold text-body-text select-none">
+              <span className="font-sans text-xs font-semibold text-body-text select-none uppercase tracking-[0.5px]">
                 {isConnected ? (
                   <span className="flex items-center">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent-green mr-2 animate-pulse" />
@@ -346,7 +235,7 @@ export default function Navbar() {
                         setTimeout(() => setCopied(false), 1500);
                       }
                     }}
-                    className="flex items-center justify-center p-1 rounded hover:bg-surface-elevated text-mute hover:text-ink transition-all"
+                    className="flex items-center justify-center p-1 text-mute hover:text-white transition-all border border-hairline"
                   >
                     {copied ? (
                       <Check className="h-3.5 w-3.5 text-accent-green" />
@@ -356,60 +245,65 @@ export default function Navbar() {
                   </button>
                 )}
 
-                <input
-                  type="checkbox"
-                  role="switch"
-                  className="liquid-3"
-                  checked={isConnected}
-                  onChange={() => {
-                    if (isConnected) {
+                {isConnected ? (
+                  <button 
+                    onClick={() => {
                       disconnect();
-                    } else {
-                      setRoleSelectOpen(!roleSelectOpen);
-                    }
-                  }}
-                />
+                      setMobileMenuOpen(false);
+                    }}
+                    className="bg-accent-red px-3 py-1 font-sans text-[10px] font-bold tracking-[1.5px] uppercase text-white hover:bg-red-700 transition-colors"
+                  >
+                    Disconnect
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setRoleSelectOpen(!roleSelectOpen)}
+                    className="bg-white px-3 py-1 font-sans text-[10px] font-bold tracking-[1.5px] uppercase text-black hover:bg-white/80 transition-colors"
+                  >
+                    Connect
+                  </button>
+                )}
               </div>
             </div>
 
             {isConnected && (
-              <div className="flex items-center space-x-1.5 text-[11px] font-sans font-medium text-mute bg-surface-card border border-hairline px-3 py-1.5 rounded-lg select-none">
+              <div className="flex items-center space-x-1.5 text-[11px] font-sans font-bold uppercase tracking-wider text-mute bg-surface-card border border-hairline px-3 py-1.5 select-none">
                 {userRole === 'admin' && <Shield className="h-3 w-3 text-accent-red" />}
                 {userRole === 'beneficiary' && <Award className="h-3 w-3 text-accent-green" />}
                 {userRole === 'donor' && <User className="h-3 w-3 text-accent-blue" />}
-                <span>Role: {userRole.toUpperCase()}</span>
+                <span>Role: {userRole}</span>
               </div>
             )}
 
             {roleSelectOpen && !isConnected && (
-              <div className="w-full mt-2 rounded-lg border border-hairline-strong bg-surface-elevated p-1 shadow-2xl z-50">
+              <div className="w-full mt-2 border border-hairline-strong bg-surface-elevated p-1 shadow-2xl z-50">
                 <div className="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-mute border-b border-hairline mb-1 select-none">
-                  Select Test Profile
+                  Select Profile
                 </div>
                 <button
                   onClick={() => {
                     handleConnect('donor');
                     setMobileMenuOpen(false);
                   }}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
-                  Donor Profile
+                  Donor
                 </button>
                 <button
                   onClick={() => {
                     handleConnect('admin');
                     setMobileMenuOpen(false);
                   }}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
-                  Charity Admin
+                  Admin
                 </button>
                 <button
                   onClick={() => {
                     handleConnect('beneficiary');
                     setMobileMenuOpen(false);
                   }}
-                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text rounded hover:bg-surface-card hover:text-ink"
+                  className="flex w-full items-center px-3 py-2 text-left font-sans text-xs font-semibold text-body-text hover:bg-surface-card hover:text-ink uppercase tracking-wider"
                 >
                   Beneficiary
                 </button>
@@ -418,6 +312,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </nav>
+    </div>
   );
 }

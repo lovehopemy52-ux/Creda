@@ -1,4 +1,4 @@
-name: Truvial CI/CD Pipeline
+name: Creda CI/CD Pipeline
 
 on:
   push:

@@ -20,28 +20,28 @@ export default function TxCenterPage() {
     switch (status) {
       case 'pending':
         return (
-          <div className="flex items-center space-x-1.5 rounded-full bg-accent-yellow-glow/10 border border-accent-yellow/20 px-3 py-1 text-accent-yellow text-xs font-mono">
+          <div className="flex items-center space-x-1.5 border border-accent-yellow px-3 py-1 text-accent-yellow text-xs font-mono uppercase tracking-wider font-bold">
             <Clock className="h-3.5 w-3.5" />
             <span>Pending</span>
           </div>
         );
       case 'processing':
         return (
-          <div className="flex items-center space-x-1.5 rounded-full bg-accent-blue-glow/10 border border-accent-blue/20 px-3 py-1 text-accent-blue text-xs font-mono">
+          <div className="flex items-center space-x-1.5 border border-accent-blue px-3 py-1 text-accent-blue text-xs font-mono uppercase tracking-wider font-bold">
             <RefreshCw className="h-3.5 w-3.5 animate-spin" />
             <span>Processing</span>
           </div>
         );
       case 'confirmed':
         return (
-          <div className="flex items-center space-x-1.5 rounded-full bg-accent-green-glow/10 border border-accent-green/20 px-3 py-1 text-accent-green text-xs font-mono">
+          <div className="flex items-center space-x-1.5 border border-accent-green px-3 py-1 text-accent-green text-xs font-mono uppercase tracking-wider font-bold">
             <CheckCircle className="h-3.5 w-3.5" />
             <span>Confirmed</span>
           </div>
         );
       case 'failed':
         return (
-          <div className="flex items-center space-x-1.5 rounded-full bg-accent-red-glow/10 border border-accent-red/20 px-3 py-1 text-accent-red text-xs font-mono">
+          <div className="flex items-center space-x-1.5 border border-accent-red px-3 py-1 text-accent-red text-xs font-mono uppercase tracking-wider font-bold">
             <XCircle className="h-3.5 w-3.5" />
             <span>Failed</span>
           </div>
@@ -52,11 +52,9 @@ export default function TxCenterPage() {
   const handleRetry = async (tx: Transaction) => {
     setRetryingId(tx.id);
     try {
-      // Simulate/trigger a new donation or call based on title
       if (tx.amount) {
         await StellarService.donate(Number(tx.amount));
       } else {
-        // Simple fallback simulation
         updateTransaction(tx.id, { status: 'pending', error: undefined });
         await new Promise((resolve) => setTimeout(resolve, 1000));
         updateTransaction(tx.id, { status: 'processing' });
@@ -78,15 +76,15 @@ export default function TxCenterPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hairline pb-6 gap-4">
         <div>
-          <h1 className="font-serif text-4xl text-ink font-normal">Transaction Center</h1>
-          <p className="font-sans text-sm text-charcoal mt-1">
+          <h1 className="font-sans text-4xl text-white font-bold uppercase tracking-tight">Transaction Center</h1>
+          <p className="font-sans text-sm text-mute uppercase tracking-widest mt-1">
             Real-time Soroban ledger transaction monitor and error handler.
           </p>
         </div>
         {transactions.length > 0 && (
           <button
             onClick={clearTransactions}
-            className="flex h-9 items-center justify-center rounded border border-hairline-strong bg-surface-elevated px-4 font-sans text-xs font-medium text-accent-red hover:bg-accent-red/10 transition-colors space-x-2"
+            className="flex h-10 items-center justify-center border border-accent-red bg-transparent px-4 font-sans text-xs font-bold uppercase tracking-[1.5px] text-accent-red hover:bg-accent-red hover:text-white transition-all space-x-2"
           >
             <Trash2 className="h-4 w-4" />
             <span>Clear History</span>
@@ -100,10 +98,10 @@ export default function TxCenterPage() {
           <button
             key={tab}
             onClick={() => setFilter(tab)}
-            className={`px-4 py-1.5 rounded-full font-sans text-xs font-semibold capitalize transition-all border ${
+            className={`px-4 py-1.5 font-sans text-xs font-bold uppercase tracking-[1.5px] transition-all border ${
               filter === tab
-                ? 'bg-primary-white text-primary-on border-transparent'
-                : 'bg-surface-elevated text-mute border-hairline hover:text-ink'
+                ? 'bg-white text-black border-white'
+                : 'bg-surface-elevated text-mute border-hairline hover:text-white'
             }`}
           >
             {tab}
@@ -114,25 +112,25 @@ export default function TxCenterPage() {
       {/* Transactions List */}
       <div className="space-y-4">
         {filteredTxs.length === 0 ? (
-          <div className="text-center py-20 border border-hairline rounded-lg bg-surface-card text-mute">
+          <div className="text-center py-20 border border-hairline bg-surface-card text-mute uppercase tracking-wider text-xs">
             No transactions found matching the filter.
           </div>
         ) : (
           filteredTxs.map((tx) => (
             <div
               key={tx.id}
-              className="rounded-lg border border-hairline bg-surface-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:border-hairline-strong"
+              className="border border-hairline bg-surface-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:border-white"
             >
               {/* Left Column: Title & Metadata */}
               <div className="space-y-2 flex-1">
                 <div className="flex items-center space-x-3">
-                  <h3 className="font-sans text-sm font-semibold text-ink">{tx.title}</h3>
-                  <span className="font-mono text-[10px] text-mute">ID: {tx.id}</span>
+                  <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wide">{tx.title}</h3>
+                  <span className="font-mono text-[10px] text-mute uppercase">ID: {tx.id}</span>
                 </div>
                 
                 {tx.hash && (
                   <div className="flex items-center space-x-2">
-                    <span className="font-sans text-[11px] text-mute">Hash:</span>
+                    <span className="font-sans text-[11px] text-mute uppercase">Hash:</span>
                     <a
                       href={`https://stellar.expert/explorer/testnet/tx/${tx.hash}`}
                       target="_blank"
@@ -146,12 +144,12 @@ export default function TxCenterPage() {
                 )}
 
                 {tx.error && (
-                  <div className="rounded bg-accent-red-glow/10 border border-accent-red/20 px-3 py-1.5 font-mono text-xs text-accent-red max-w-xl">
+                  <div className="border border-accent-red bg-accent-red-glow/10 px-3 py-1.5 font-mono text-xs text-accent-red max-w-xl">
                     {tx.error}
                   </div>
                 )}
                 
-                <div className="text-[11px] text-ash font-mono">
+                <div className="text-[11px] text-mute font-mono uppercase tracking-wider">
                   Submitted at: {new Date(tx.timestamp).toLocaleString()}
                 </div>
               </div>
@@ -164,7 +162,7 @@ export default function TxCenterPage() {
                   <button
                     onClick={() => handleRetry(tx)}
                     disabled={retryingId === tx.id}
-                    className="flex h-8 w-8 items-center justify-center rounded border border-hairline bg-surface-elevated text-mute hover:text-ink transition-colors disabled:opacity-50"
+                    className="flex h-8 w-8 items-center justify-center border border-hairline bg-surface-elevated text-mute hover:text-white transition-colors disabled:opacity-50"
                     title="Retry transaction"
                   >
                     <RotateCcw className={`h-4 w-4 ${retryingId === tx.id ? 'animate-spin' : ''}`} />

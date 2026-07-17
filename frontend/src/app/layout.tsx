@@ -4,7 +4,7 @@ import Providers from './providers';
 import Navbar from '../components/Navbar';
 
 export const metadata: Metadata = {
-  title: 'Truvial - Transparent Charity Fund Distribution System',
+  title: 'Creda - Transparent Charity Fund Distribution System',
   description: 'A decentralized treasury and milestone payout management platform built on Stellar Soroban.',
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           <footer className="border-t border-hairline bg-canvas py-8 px-6 text-center">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between font-sans text-xs text-charcoal">
               <div>
-                &copy; {new Date().getFullYear()} Truvial Inc. Built for transparent, milestone-driven giving.
+                &copy; {new Date().getFullYear()} Creda Inc. Built for transparent, milestone-driven giving.
               </div>
               <div className="flex items-center space-x-2 mt-4 md:mt-0">
                 <span className="relative flex h-2 w-2">

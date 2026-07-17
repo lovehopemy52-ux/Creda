@@ -1,5 +1,5 @@
 [package]
-name = "truvial-distribution"
+name = "creda-distribution"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,7 +8,8 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 soroban-sdk = { version = "=22.0.0" }
+creda-treasury = { path = "../treasury" }
 
 [dev-dependencies]
 soroban-sdk = { version = "=22.0.0", features = ["testutils"] }
-truvial-treasury = { path = "../treasury" }
+creda-treasury = { path = "../treasury" }

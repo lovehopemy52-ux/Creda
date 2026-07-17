@@ -6,7 +6,7 @@ const path = require('path');
 const NETWORK = process.env.STELLAR_NETWORK || 'testnet';
 const SOURCE_ACCOUNT = process.env.STELLAR_SOURCE || 'alice';
 
-console.log(`Starting deployment script for Truvial...`);
+console.log(`Starting deployment script for Creda...`);
 console.log(`Target Network: ${NETWORK}`);
 console.log(`Source Account: ${SOURCE_ACCOUNT}\n`);
 
@@ -25,12 +25,12 @@ async function deploy() {
   try {
     // 1. Build WASM binaries
     console.log('--- Step 1: Compiling Soroban Contracts ---');
-    runCommand('cargo build --target wasm32-unknown-unknown --release');
+    runCommand('cargo build --target wasm32v1-none --release');
     console.log('Contracts compiled successfully.\n');
 
     // Paths to built WASM
-    const treasuryWasm = 'target/wasm32-unknown-unknown/release/truvial_treasury.wasm';
-    const distributionWasm = 'target/wasm32-unknown-unknown/release/truvial_distribution.wasm';
+    const treasuryWasm = 'target/wasm32v1-none/release/creda_treasury.wasm';
+    const distributionWasm = 'target/wasm32v1-none/release/creda_distribution.wasm';
 
     // 2. Deploy Treasury WASM
     console.log('--- Step 2: Deploying Treasury Contract ---');

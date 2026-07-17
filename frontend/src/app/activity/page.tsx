@@ -10,7 +10,7 @@ export default function ActivityFeedPage() {
   const getIcon = (type: string) => {
     switch (type) {
       case 'donation':
-        return <Coins className="h-4 w-4 text-accent-orange" />;
+        return <Coins className="h-4 w-4 text-accent-red" />;
       case 'project_created':
         return <PlusCircle className="h-4 w-4 text-accent-blue" />;
       case 'milestone_approved':
@@ -25,15 +25,15 @@ export default function ActivityFeedPage() {
   const getBadgeColor = (type: string) => {
     switch (type) {
       case 'donation':
-        return 'bg-accent-orange-glow/10 border-accent-orange/20 text-accent-orange';
+        return 'border-accent-red text-accent-red';
       case 'project_created':
-        return 'bg-accent-blue-glow/10 border-accent-blue/20 text-accent-blue';
+        return 'border-accent-blue text-accent-blue';
       case 'milestone_approved':
-        return 'bg-accent-yellow-glow/10 border-accent-yellow/20 text-accent-yellow';
+        return 'border-accent-yellow text-accent-yellow';
       case 'milestone_released':
-        return 'bg-accent-green-glow/10 border-accent-green/20 text-accent-green';
+        return 'border-accent-green text-accent-green';
       default:
-        return 'bg-surface-elevated border-hairline text-mute';
+        return 'border-hairline text-mute';
     }
   };
 
@@ -41,8 +41,8 @@ export default function ActivityFeedPage() {
     <div className="space-y-8 max-w-4xl mx-auto">
       {/* Page Header */}
       <div className="border-b border-hairline pb-6">
-        <h1 className="font-serif text-4xl text-ink font-normal">Real-Time Activity Feed</h1>
-        <p className="font-sans text-sm text-charcoal mt-1">
+        <h1 className="font-sans text-4xl text-white font-bold uppercase tracking-tight">Real-Time Activity Feed</h1>
+        <p className="font-sans text-sm text-mute uppercase tracking-widest mt-1">
           Immutable audit trail of all Treasury deposits and milestone distributions.
         </p>
       </div>
@@ -50,35 +50,35 @@ export default function ActivityFeedPage() {
       {/* Main List */}
       <div className="space-y-6">
         {activities.length === 0 ? (
-          <div className="text-center py-16 border border-hairline rounded-lg bg-surface-card text-mute">
+          <div className="text-center py-16 border border-hairline bg-surface-card text-mute uppercase tracking-wider text-xs">
             No activities tracked yet.
           </div>
         ) : (
           activities.map((activity) => (
             <div
               key={activity.id}
-              className="rounded-lg border border-hairline bg-surface-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:border-hairline-strong"
+              className="border border-hairline bg-surface-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:border-white"
             >
               {/* Left Side: Type Icon & Details */}
               <div className="flex items-start space-x-4">
-                <div className={`p-2.5 rounded border ${getBadgeColor(activity.type)}`}>
+                <div className={`p-2.5 border ${getBadgeColor(activity.type)}`}>
                   {getIcon(activity.type)}
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                    <span className="font-sans text-sm font-semibold text-ink">
-                      {activity.type.replace('_', ' ').toUpperCase()}
+                    <span className="font-sans text-sm font-bold text-white uppercase tracking-wider">
+                      {activity.type.replace('_', ' ')}
                     </span>
-                    <span className="font-mono text-[10px] text-mute">
+                    <span className="font-mono text-[10px] text-mute uppercase">
                       ID: {activity.id}
                     </span>
                   </div>
-                  <p className="font-sans text-sm text-body-text leading-relaxed">
+                  <p className="font-sans text-sm text-body-text leading-relaxed font-light">
                     {activity.details}
                   </p>
                   {activity.amount && (
-                    <div className="font-mono text-xs text-mute mt-1.5">
-                      Value: <span className="text-ink font-semibold">{activity.amount.toLocaleString()} XLM</span>
+                    <div className="font-mono text-xs text-mute mt-1.5 uppercase">
+                      Value: <span className="text-white font-bold">{activity.amount.toLocaleString()} XLM</span>
                     </div>
                   )}
                 </div>
@@ -86,7 +86,7 @@ export default function ActivityFeedPage() {
 
               {/* Right Side: Timestamp & Ledger Link */}
               <div className="flex flex-row md:flex-col items-center md:items-end justify-between border-t border-hairline/30 md:border-none pt-3 md:pt-0 gap-2">
-                <div className="flex items-center text-xs text-mute font-mono">
+                <div className="flex items-center text-xs text-mute font-mono uppercase tracking-wider">
                   <Calendar className="mr-1 h-3.5 w-3.5" />
                   {new Date(activity.timestamp).toLocaleTimeString()}
                 </div>
@@ -97,7 +97,7 @@ export default function ActivityFeedPage() {
                     rel="noopener noreferrer"
                     className="flex items-center space-x-1 font-mono text-[11px] text-accent-blue hover:underline mt-1"
                   >
-                    <span>{activity.hash.slice(0, 10)}...</span>
+                    <span>{activity.hash.slice(0, 12)}...</span>
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 )}

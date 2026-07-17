@@ -22,7 +22,7 @@ describe('useWalletStore unit tests', () => {
   });
 
   it('should connect user successfully and set role-specific mock balances', () => {
-    const mockAddress = 'GBADMIN777...TRUVIAL';
+    const mockAddress = 'GBADMIN777...CREDA';
     
     // Connect as admin
     useWalletStore.getState().connect(mockAddress, 'admin');

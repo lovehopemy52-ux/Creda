@@ -48,9 +48,9 @@ export default function AnalyticsPage() {
   const pendingCount = allMilestones.filter((m) => m.status === 'Pending').length;
 
   const milestoneStatusData = [
-    { name: 'Paid', value: paidCount, color: '#11ff99' },
-    { name: 'Approved', value: approvedCount, color: '#3b9eff' },
-    { name: 'Pending', value: pendingCount, color: '#ff801f' }
+    { name: 'Paid', value: paidCount, color: '#0fa336' },
+    { name: 'Approved', value: approvedCount, color: '#1c69d4' },
+    { name: 'Pending', value: pendingCount, color: '#e22718' }
   ];
 
   // Helper calculation for Donation Area Chart SVG
@@ -95,8 +95,8 @@ export default function AnalyticsPage() {
     <div className="space-y-12">
       {/* Header */}
       <div className="border-b border-hairline pb-6">
-        <h1 className="font-serif text-4xl text-ink font-normal">Analytics & Insights</h1>
-        <p className="font-sans text-sm text-charcoal mt-1">
+        <h1 className="font-sans text-4xl text-white font-bold uppercase tracking-tight">Analytics & Insights</h1>
+        <p className="font-sans text-sm text-mute uppercase tracking-widest mt-1">
           Financial breakdowns and operational milestone tracking metrics.
         </p>
       </div>
@@ -104,14 +104,14 @@ export default function AnalyticsPage() {
       {/* Analytics Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Donation Growth Chart */}
-        <div className="rounded-lg border border-hairline bg-surface-card p-6 space-y-6">
+        <div className="border border-hairline bg-surface-card p-6 space-y-6">
           <div className="flex items-center space-x-2">
-            <TrendingUp className="h-4 w-4 text-accent-orange" />
-            <h3 className="font-sans text-sm font-semibold text-ink uppercase tracking-wider">
+            <TrendingUp className="h-4 w-4 text-accent-red" />
+            <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wider">
               Cumulative Donation Growth
             </h3>
           </div>
-          <div className="flex flex-col items-center justify-center p-4 border border-hairline/50 rounded bg-surface-deep/30">
+          <div className="flex flex-col items-center justify-center p-4 border border-hairline/50 bg-surface-deep/30">
             {donationData.length === 0 ? (
               <div className="font-sans text-xs text-mute py-12">No donation history available yet.</div>
             ) : (
@@ -119,8 +119,8 @@ export default function AnalyticsPage() {
                 <svg viewBox={`0 0 ${areaWidth} ${areaHeight}`} className="w-full h-full overflow-visible">
                   <defs>
                     <linearGradient id="areaGlow" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#ff801f" stopOpacity={0.25} />
-                      <stop offset="95%" stopColor="#ff801f" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#e22718" stopOpacity={0.15} />
+                      <stop offset="95%" stopColor="#e22718" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   
@@ -128,19 +128,19 @@ export default function AnalyticsPage() {
                   <line x1="0" y1={areaHeight * 0.25} x2={areaWidth} y2={areaHeight * 0.25} stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
                   <line x1="0" y1={areaHeight * 0.5} x2={areaWidth} y2={areaHeight * 0.5} stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
                   <line x1="0" y1={areaHeight * 0.75} x2={areaWidth} y2={areaHeight * 0.75} stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
-
+ 
                   {/* Area path */}
                   {areaPath && <path d={areaPath} fill="url(#areaGlow)" />}
                   {/* Line path */}
-                  {linePath && <path d={linePath} fill="none" stroke="#ff801f" strokeWidth="2.5" />}
-
+                  {linePath && <path d={linePath} fill="none" stroke="#e22718" strokeWidth="2.5" />}
+ 
                   {/* Axis line */}
                   <line x1="0" y1={areaHeight} x2={areaWidth} y2={areaHeight} stroke="rgba(255,255,255,0.1)" />
-
+ 
                   {/* Points */}
                   {areaPoints.map((p, idx) => (
                     <g key={idx}>
-                      <circle cx={p.x} cy={p.y} r="4" fill="#0a0a0c" stroke="#ff801f" strokeWidth="2" />
+                      <circle cx={p.x} cy={p.y} r="4" fill="#0d0d0d" stroke="#e22718" strokeWidth="2" />
                     </g>
                   ))}
                 </svg>
@@ -156,32 +156,32 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Project Allocations */}
-        <div className="rounded-lg border border-hairline bg-surface-card p-6 space-y-6">
+        <div className="border border-hairline bg-surface-card p-6 space-y-6">
           <div className="flex items-center space-x-2">
             <BarChart2 className="h-4 w-4 text-accent-blue" />
-            <h3 className="font-sans text-sm font-semibold text-ink uppercase tracking-wider">
+            <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wider">
               Initiative Budgets vs Allocations
             </h3>
           </div>
-          <div className="flex flex-col space-y-4 justify-center p-4 border border-hairline/50 rounded bg-surface-deep/30 min-h-[176px]">
+          <div className="flex flex-col space-y-4 justify-center p-4 border border-hairline/50 bg-surface-deep/30 min-h-[176px]">
             {projectBudgetDistribution.length === 0 ? (
               <div className="font-sans text-xs text-mute py-12 text-center">No project details tracked yet.</div>
             ) : (
               projectBudgetDistribution.map((item, idx) => (
                 <div key={idx} className="space-y-2">
                   <div className="flex justify-between text-xs font-sans">
-                    <span className="text-ink font-medium">{item.name}</span>
+                    <span className="text-white font-semibold uppercase tracking-wide">{item.name}</span>
                     <span className="text-mute font-mono">
                       {item.Allocated.toLocaleString()} / {item.Budget.toLocaleString()} XLM
                     </span>
                   </div>
-                  <div className="h-2 w-full bg-surface-deep rounded-full overflow-hidden flex space-x-1">
+                  <div className="h-2 w-full bg-surface-deep overflow-hidden flex space-x-1">
                     <div 
-                      className="bg-accent-blue h-full rounded-l-full" 
+                      className="bg-accent-blue h-full" 
                       style={{ width: `${Math.max((item.Budget / barMax) * 100, 2)}%` }}
                     />
                     <div 
-                      className="bg-accent-green h-full rounded-r-full" 
+                      className="bg-accent-green h-full" 
                       style={{ width: `${Math.max((item.Allocated / barMax) * 100, 2)}%` }}
                     />
                   </div>
@@ -191,15 +191,15 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        {/* Milestone Fulfillment Pie Chart */}
-        <div className="rounded-lg border border-hairline bg-surface-card p-6 space-y-6">
+        {/* Milestone Fulfillment Donut Chart */}
+        <div className="border border-hairline bg-surface-card p-6 space-y-6">
           <div className="flex items-center space-x-2">
             <PieChart className="h-4 w-4 text-accent-green" />
-            <h3 className="font-sans text-sm font-semibold text-ink uppercase tracking-wider">
+            <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wider">
               Milestone Payout Fulfillment
             </h3>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-around h-64 gap-4 p-4 border border-hairline/50 rounded bg-surface-deep/30">
+          <div className="flex flex-col sm:flex-row items-center justify-around h-64 gap-4 p-4 border border-hairline/50 bg-surface-deep/30">
             {allMilestones.length === 0 ? (
               <div className="font-sans text-xs text-mute py-12 text-center w-full">No milestones configured yet.</div>
             ) : (
@@ -224,15 +224,15 @@ export default function AnalyticsPage() {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center font-sans">
                     <span className="text-mute text-[10px] uppercase tracking-wider">Total</span>
-                    <span className="text-xl font-bold text-ink">{allMilestones.length}</span>
+                    <span className="text-xl font-bold text-white">{allMilestones.length}</span>
                   </div>
                 </div>
                 <div className="space-y-3 font-sans text-xs flex-1 sm:pl-6">
                   {milestoneStatusData.map((item, idx) => (
                     <div key={idx} className="flex items-center space-x-2.5">
-                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
-                      <span className="text-mute font-medium capitalize w-20">{item.name}</span>
-                      <span className="text-ink font-semibold font-mono">
+                      <span className="h-3 w-3" style={{ backgroundColor: item.color }} />
+                      <span className="text-mute font-bold uppercase tracking-wider w-20">{item.name}</span>
+                      <span className="text-white font-semibold font-mono">
                         {item.value} ({((item.value / totalMilestones) * 100).toFixed(0)}%)
                       </span>
                     </div>
@@ -244,19 +244,19 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Informative Audit Box */}
-        <div className="rounded-lg border border-hairline bg-surface-card p-6 flex flex-col justify-between">
+        <div className="border border-hairline bg-surface-card p-6 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Info className="h-4 w-4 text-accent-yellow" />
-              <h3 className="font-sans text-sm font-semibold text-ink uppercase tracking-wider">
+              <h3 className="font-sans text-sm font-bold text-white uppercase tracking-wider">
                 Auditor & Compliance Metrics
               </h3>
             </div>
-            <p className="font-sans text-sm text-charcoal leading-relaxed">
+            <p className="font-sans text-sm text-body-text leading-relaxed font-light">
               Every data point rendered above correlates directly with Soroban persistent events on the Stellar Testnet ledger. Since values are loaded from the smart contract storage indices, this dashboard provides a real-time, mathematically verifiable view of charity operation health.
             </p>
           </div>
-          <div className="border-t border-hairline/50 pt-4 mt-6 flex justify-between font-mono text-[10px] text-mute">
+          <div className="border-t border-hairline/50 pt-4 mt-6 flex justify-between font-mono text-[10px] text-mute uppercase tracking-wider">
             <span>Audit status: Pass</span>
             <span>Ledger Index: #56812</span>
           </div>

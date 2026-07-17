@@ -2,7 +2,7 @@
 use super::*;
 use soroban_sdk::{token, Address, Env, String};
 use soroban_sdk::testutils::Address as _;
-use truvial_treasury::TreasuryContract;
+use creda_treasury::TreasuryContract;
 
 #[test]
 fn test_distribution_flow() {
@@ -21,7 +21,7 @@ fn test_distribution_flow() {
     let treasury_id = env.register_contract(None, TreasuryContract);
     let distribution_id = env.register_contract(None, DistributionContract);
 
-    let treasury_client = truvial_treasury::TreasuryContractClient::new(&env, &treasury_id);
+    let treasury_client = creda_treasury::TreasuryContractClient::new(&env, &treasury_id);
     let distribution_client = DistributionContractClient::new(&env, &distribution_id);
 
     // Initialize

@@ -1,4 +1,4 @@
-<h1 align="center">Truvial Charity Escrow & Distribution</h1>
+<h1 align="center">Creda Charity Escrow & Distribution</h1>
 
 <p align="center">
   <strong>A Decentralized, Milestone-Based Charity Treasury Management Platform built on the Stellar network using decoupled Soroban smart contracts.</strong>
@@ -29,7 +29,7 @@
 
 * [1. Product Overview & Problem Statement](#overview)
   * [The Problem](#the-problem)
-  * [The Truvial Solution](#the-truvial-solution)
+  * [The Creda Solution](#the-creda-solution)
 * [2. Technical Stack](#tech-stack)
 * [3. Directory Structure](#directory-structure)
 * [4. Technical Architecture & Component Flow](#architecture)
@@ -60,8 +60,8 @@
 ### The Problem
 Traditional charitable giving suffers from a lack of transparency and real-time accountability. Donors contribute capital to centralized organizations but lose visibility over how, when, and where their funds are spent. Administrative inefficiencies, lack of verification on completed goals, and misappropriation of capital lead to donor fatigue and reduced trust in global philanthropy.
 
-### The Truvial Solution
-Truvial resolves these structural limitations using:
+### The Creda Solution
+Creda resolves these structural limitations using:
 * **Decoupled Treasury Escrow**: Donor funds are locked securely in an immutable `Treasury` smart contract, completely separated from the distribution logic.
 * **Milestone-Based Releases**: Capital is only disbursed to beneficiaries when specific project milestones are completed and verified by designated administrators.
 * **Contract-to-Contract (C2C) Payout Calls**: The `Distribution` contract manages project registries, whitelist configurations, and approval checks. It executes cross-contract calls to the `Treasury` to release milestone payouts only when strict validation criteria are met.
@@ -86,7 +86,7 @@ Truvial resolves these structural limitations using:
 The project is organized with a feature-based architecture separating smart contracts, deployment tools, and the Next.js frontend app:
 
 ```
-Truvial/
+Creda/
 ├── .github/
 │   └── workflows/
 │       └── ci-cd.yml                  # CI/CD Pipeline Configuration
@@ -245,10 +245,10 @@ This generates the optimized WASM files in `target/wasm32v1-none/release/`.
 ### Step 3: Deploy Charity Treasury
 ```bash
 stellar contract deploy \
-  --wasm target/wasm32v1-none/release/truvial_treasury.wasm \
+  --wasm target/wasm32v1-none/release/creda_treasury.wasm \
   --source-account tiyu \
   --network testnet \
-  --alias truvial_treasury
+  --alias creda_treasury
 ```
 * **Output Address**: `CAF6HNIVLT63MSPNEU4HFZKUOBNVTFP5DJ3HS2XVICUKJBJN3DAWFJC5`
 
@@ -256,10 +256,10 @@ stellar contract deploy \
 ### Step 4: Deploy Milestone Distribution
 ```bash
 stellar contract deploy \
-  --wasm target/wasm32v1-none/release/truvial_distribution.wasm \
+  --wasm target/wasm32v1-none/release/creda_distribution.wasm \
   --source-account tiyu \
   --network testnet \
-  --alias truvial_distribution
+  --alias creda_distribution
 ```
 * **Output Address**: `CAHQYPGH7MZIKSQVOOEZBZMH2Z3QSAWQSCNW6LO44HJX3L5JKEZHUQ65`
 
